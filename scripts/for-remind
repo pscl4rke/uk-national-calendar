@@ -1,0 +1,69 @@
+#!/usr/bin/python3
+
+
+import argparse
+import configparser
+import datetime
+import sys
+
+
+class Event:
+
+    def __init__(self, source_file):
+        self._inifile = configparser.ConfigParser()
+        self._inifile.read(source_file)
+        self._default_title = self._inifile["general"]["title"]
+
+    def dates(self):
+        dates = []
+        for sectionname  in self._inifile.sections():
+            if sectionname == "general":
+                continue
+            section = self._inifile[sectionname]
+            title = section.get("title", self._default_title)
+            for date in dates_for(section):
+                dates.append((title, date))
+        return dates
+
+
+def dates_for(section):
+    if "date" in section:
+        if section["date"] == "None":
+            return []
+        return [parse_date(section["date"])]
+    dates = []
+    current = parse_date(section["start"])
+    while current <= parse_date(section["end"]):
+        dates.append(current)
+        current += datetime.timedelta(days=1)
+    return dates
+
+
+def parse_date(text):
+    return datetime.datetime.strptime(text, "%Y-%m-%d").date()
+
+
+def parse_args(args):
+    parser = argparse.ArgumentParser()
+    parser.add_argument("-t", "--tag", default=None)
+    parser.add_argument("source_files", nargs="+")
+    return parser.parse_args(args)
+
+
+def main():
+    args = parse_args(sys.argv[1:])
+    for filename in args.source_files:
+        print()
+        print("# %s" % filename)
+        for title, date in Event(filename).dates():
+            parts = ["REM"]
+            parts.append(date.strftime("%d %b %Y"))
+            parts.append("AT 12:00")
+            if args.tag is not None:
+                parts.append("TAG %s" % args.tag)
+            parts.append("MSG %s" % title)
+            print(" ".join(parts))
+
+
+if __name__ == '__main__':
+    main()
