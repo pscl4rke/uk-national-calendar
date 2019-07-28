@@ -22,7 +22,9 @@ will be talking about them.
 
 ## File Format
 
-The data files are in the DOS "INI" format.
+The data files are in the DOS "INI" format
+(although, despite the name, they have LF line endings
+instead of CRLF ones).
 As there are ambiguities over edge cases the official arbiter
 of the format will be the `configparser` module from Python.
 
