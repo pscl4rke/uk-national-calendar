@@ -1,0 +1,30 @@
+#!/usr/bin/python3
+
+
+import configparser
+import sys
+
+
+# FIXME unhardcoded years
+# FIXME argparse
+# FIXME show urls
+# FIXME load only once
+
+
+def dont_yet_have(filename, year):
+    srcfile = configparser.ConfigParser()
+    srcfile.read(filename)
+    return (str(year) not in srcfile.sections())
+
+
+def main():
+    years_wanted = [2019, 2020]
+    files = sys.argv[1:]
+    for filename in files:
+        for year in years_wanted:
+            if dont_yet_have(filename, year):
+                print("Missing %s in %s" % (year, filename))
+
+
+if __name__ == '__main__':
+    main()
