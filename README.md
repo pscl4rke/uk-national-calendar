@@ -50,9 +50,28 @@ If the event never happened that year then a section
 for the year must still be created,
 and the `date` key must be set to `None`.
 
+    [1998]
+    date = None
+
+Should the event happen multiple times in one year then
+there must be a section for each event and one or more
+prime symbol (apostrophe) added to the section heading
+to avoid duplication.
+
+    [1999]
+    date = 1999-04-13
+    [1999']
+    date = 1999-07-22
+    [1999'']
+    date = 1999-11-06
+
+Section order is not important, but there is a convention
+to put the most recent events first.  (Unlike these
+examples.)
+
 ## Licence
 
-The data in the files is licensed under
+The event data in the files is licensed under
 Creative Commons Attribution & Share-Alike.
 This matches Wikipedia,
 which happens to be a source for much of it.
