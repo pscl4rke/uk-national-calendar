@@ -4,13 +4,15 @@ Some dates are very regular in their occurrences.
 Like the western Christmas,
 which is the 25th of December every year.
 Others are more complicated,
-like Easter, or bank holidays,
+like Easter,
 but their definitions are well supported,
 so it's not difficult to add them to your code.
 
 But there are plenty of national events that occur
 every year which are not predictable like that.
 Their dates are decided by committees.
+Even the the May Day bank holiday has been rearranged
+like that!
 This repository collects a bunch of them,
 so you can programmatically refer to them.
 
