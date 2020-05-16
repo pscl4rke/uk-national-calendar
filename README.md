@@ -22,6 +22,16 @@ doesn't directly impact your life,
 but you'd like to know about them because everybody else
 will be talking about them.
 
+## Warning!
+
+The event data here was largely prepared pre-coronavirus.
+Some effort has been made to update it as events get cancelled
+or postponed,
+but not much.
+
+Let's face it.
+Everyone's making it up as they go along.
+
 ## File Format
 
 The data files are in the DOS "INI" format
