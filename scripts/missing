@@ -3,11 +3,10 @@
 
 import argparse
 import configparser
+import datetime
 import sys
 
 
-# FIXME unhardcoded years
-# FIXME show urls
 # FIXME show titles
 # FIXME load only once
 
@@ -25,7 +24,8 @@ def parse_args(args):
 
 
 def main():
-    years_wanted = [2019, 2020]
+    this_year = datetime.date.today().year
+    years_wanted = list(range(2019, this_year + 2)) # include next year too
     args = parse_args(sys.argv[1:])
     for filename in args.source_files:
         for year in years_wanted:
