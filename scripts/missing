@@ -14,7 +14,16 @@ import sys
 def dont_yet_have(filename, year):
     srcfile = configparser.ConfigParser()
     srcfile.read(filename)
-    return (str(year) not in srcfile.sections())
+    # If we already have it then break out now:
+    if str(year) in srcfile.sections():
+        return False
+    # Otherwise check if it's due to happen quite soon
+    if "usually" not in srcfile["general"]:
+        return True
+    earliest_probable = "1 " + srcfile["general"]["usually"] + " " + str(year)
+    know_by = datetime.datetime.strptime(earliest_probable, "%d %b %Y") \
+        - datetime.timedelta(days=180)
+    return know_by < datetime.datetime.now()
 
 
 def parse_args(args):

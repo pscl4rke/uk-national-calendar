@@ -46,6 +46,11 @@ a human readable `title` key.
     [general]
     title = Welly Wanging World Cup Final
 
+In addition a `usually` key can be given which declares the name
+of a month in which the event often occurs.
+Tooling can use this to ignore undefined events a long way
+into the future.
+
 For each year there is a section.
 The section must contain either a `date` key formatted
 as an ISO 8601 date for a single-day event,
