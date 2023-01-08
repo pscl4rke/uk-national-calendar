@@ -38,7 +38,7 @@ def errors_in(filename):
             for error in errors_in_general(srcfile[section_name]):
                 yield "[general]: %s" % error
         elif is_a_year(section_name):
-            for error in errors_in_year(srcfile[section_name]):
+            for error in errors_in_year(section_name.rstrip("'"), srcfile[section_name]):
                 yield "[%s]: %s" % (section_name, error)
         else:
             yield "Unexpected section %r" % section_name
@@ -61,7 +61,7 @@ def errors_in_general(general):
             yield "Unexpected definition of %r" % key
 
 
-def errors_in_year(section):
+def errors_in_year(year: str, section):
     if "date" in section:
         if "start" in section:
             yield "Cannot combine date with start"
@@ -76,8 +76,12 @@ def errors_in_year(section):
             if "end" not in section:
                 yield "Missing end"
     for key in ("date", "start", "end"):
-        if key in section and not is_a_date(section[key]):
-            yield "Invalid date format of %s: %r" % (key, section[key])
+        if key in section:
+            if is_a_date(section[key]):
+                if section[key] != "None" and section[key][:4] != year:
+                    yield "Incorrect year: %r" % section[key]
+            else:
+                yield "Invalid date format of %s: %r" % (key, section[key])
     for key in section:
         if key not in ("date", "start", "end", "title"):
             yield "Unexpected definition of %r" % key
