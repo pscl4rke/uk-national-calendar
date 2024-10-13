@@ -34,10 +34,10 @@ def parse_args(args):
 
 def main():
     this_year = datetime.date.today().year
-    years_wanted = list(range(this_year - 1, this_year + 2)) # include next year too
+    years_wanted = list(range(this_year - 1, this_year + 2))  # include next year too
     args = parse_args(sys.argv[1:])
-    for filename in args.source_files:
-        for year in years_wanted:
+    for year in years_wanted:
+        for filename in args.source_files:
             if dont_yet_have(filename, year):
                 print("Missing %s in %s" % (year, filename))
 
